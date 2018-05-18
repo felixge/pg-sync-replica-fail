@@ -15,6 +15,13 @@ recovery_target_timeline = 'latest'
 trigger_file = '/tmp/pg.trigger'
 EOF
 
+if [ "${SLOT_NAME:-}" != "" ]; then
+  echo "-> Setting up SLOT_NAME=${SLOT_NAME}"
+  cat >> "$PGDATA/recovery.conf" <<EOF
+primary_slot_name = '${SLOT_NAME}'
+EOF
+fi
+
 cat >> "$PGDATA/postgresql.conf" <<EOF
 log_statement = all
 hot_standby = on
