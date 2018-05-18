@@ -23,6 +23,10 @@ for big transactions spawning multiple WAL segments with a slow standby, the
 primary will remove WAL according to its own config (e.g. `max_wal_size`)
 even if the standby hasn't received them yet.
 
+This repo simulates this scenario by performing a large insert (5.000.000 rows)
+in a single transaction while simulating a poor network link between the
+primary and standby.
+
 Of course the proper solution is to use replication slots, which avoid this
 problem.
 
